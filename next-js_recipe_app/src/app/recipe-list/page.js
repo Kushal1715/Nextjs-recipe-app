@@ -1,5 +1,19 @@
-export default function RecipeListPage() {
+import RecipeList from "@/components/recipeList";
+
+async function getRecipes() {
+  try {
+    const response = await fetch('https://dummyjson.com/recipes');
+    const data = await response.json();
+    return data?.recipes;
+
+  } catch (e) {
+    throw new Errow(e);
+  }
+}
+
+export default async function RecipeListPage() {
+  const recipeList = await getRecipes();
   return <div>
-    <h1> This is recipe list page</h1>
+    <RecipeList recipeList={recipeList} />
   </div>
 }
